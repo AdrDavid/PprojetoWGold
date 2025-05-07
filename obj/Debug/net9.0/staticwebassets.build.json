@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "EVmYtnOjCsfUUbVqyOO2fdVq1duMkLIZK74jnFhXcms=",
+  "Source": "ApiWow",
+  "BasePath": "_content/ApiWow",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

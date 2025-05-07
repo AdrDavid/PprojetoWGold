@@ -1,0 +1,34 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ApiWgold.Models
+{
+    [Table("Order")]    
+    public class Order
+    {
+        [Key]
+        public int OrderId { get; set; }
+
+        // ID do comprador (usuário que está comprando gold)
+        public int BuyerId { get; set; }
+        public User? Buyer { get; set; }
+
+        // ID do anúncio de venda de gold
+        public int GoldListingId { get; set; }
+        public GoldListing? GoldListing { get; set; }
+
+        // Quantidade comprada em milhares (ex: 3K = 3000 gold)
+        [Required][Range(1, int.MaxValue)]
+        public int QuantityK { get; set; }
+
+        // Valor total da compra
+        [Required][Column(TypeName = "decimal(18,2)")]
+        public decimal TotalPrice { get; set; }
+
+        // Status do pedido
+        [Required][StringLength(30)]
+        public string Status { get; set; } = "pending"; // pode ser 'pending', 'completed', 'cancelled'
+
+        public DateTime CreatedAt { get; set; }
+    }
+}
