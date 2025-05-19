@@ -20,11 +20,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("server/{gameId:int}")]
-        public ActionResult<IEnumerable<Server>> GetGameServer(int gameId)
+        public async Task<ActionResult<IEnumerable<Server>>> GetGameServer(int gameId)
         {
             try
             {
-                var servers = _context.Server.Where(s => s.GamesId == gameId).ToList();
+                var servers =await _context.Server.Where(s => s.GamesId == gameId).ToListAsync();
                 if(!servers.Any())
                 {
                     return NotFound($"Nenhum servidor encontrado para o game com id {gameId}");
@@ -39,11 +39,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Game>> Get()
+        public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
             try
             {
-                return _context.Game.ToList();
+                return await _context.Game.AsNoTracking().ToListAsync();
             }
             catch (Exception)
             {
@@ -53,11 +53,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterGame")]
-        public ActionResult<Game> Get(int id)
+        public async Task<ActionResult<Game>> Get(int id)
         {
             try
             {
-                var game = _context.Game.FirstOrDefault(g => g.GameId == id);
+                var game = await _context.Game.AsNoTracking().FirstOrDefaultAsync(g => g.GameId == id);
                 if (game == null)
                 {
                     return NotFound($"Game com id {id} não encontrado");

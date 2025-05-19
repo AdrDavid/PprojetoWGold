@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace ApiWgold.Models
 {
@@ -17,7 +18,9 @@ namespace ApiWgold.Models
 
         public DateTime CreatedAt { get; set; }
 
+        [JsonIgnore]
         public ICollection<Order>? Order { get; set; }
+        [JsonIgnore]
         public ICollection<GoldListing>? GoldListing { get; set; }
     }
 }

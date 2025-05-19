@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ApiWgold.Models
 {
@@ -11,10 +12,13 @@ namespace ApiWgold.Models
 
         // ID do comprador (usuário que está comprando gold)
         public int BuyerId { get; set; }
+        [JsonIgnore]
         public User? Buyer { get; set; }
 
         // ID do anúncio de venda de gold
         public int GoldListingId { get; set; }
+    
+        [JsonIgnore]
         public GoldListing? GoldListing { get; set; }
 
         // Quantidade comprada em milhares (ex: 3K = 3000 gold)

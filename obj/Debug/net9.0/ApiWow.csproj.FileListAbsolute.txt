@@ -20,12 +20,6 @@ C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\scopedcss\bundle\ApiWow.styles
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.build.json
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.development.json
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets\msbuild.ApiWow.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets\msbuild.ApiWow.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets\msbuild.build.ApiWow.props
-C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.ApiWow.props
-C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.ApiWow.props
-C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.pack.json
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\ApiWow.csproj.Up2Date
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\ApiWow.dll
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\refint\ApiWow.dll
@@ -129,3 +123,6 @@ C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Work
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\ApiWow.sourcelink.json
+C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.build.json.cache
+C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
