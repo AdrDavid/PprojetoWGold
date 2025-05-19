@@ -145,7 +145,7 @@ namespace ApiWgold.Controllers
                 }
                 _context.User.Remove(user);
                 _context.SaveChanges();
-                return Ok(user);
+                return Ok(user); 
             }
             catch (Exception)
             {
