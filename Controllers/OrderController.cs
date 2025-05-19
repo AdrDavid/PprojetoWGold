@@ -18,11 +18,11 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> Get()
+        public async Task<ActionResult<IEnumerable<Order>>> Get()
         {
             try
             {
-                return _context.Order.ToList();
+                return await _context.Order.ToListAsync();
             }
             catch (Exception)
             {
@@ -33,11 +33,11 @@ namespace ApiGold.Controllers
 
 
         [HttpGet("{id:int}", Name = "ObterOrder")]
-        public ActionResult<Order> Get(int id)
+        public async Task<ActionResult<Order>> Get(int id)
         {
             try
             {
-                var order = _context.Order.FirstOrDefault(o => o.OrderId == id);
+                var order = await _context.Order.AsNoTracking().FirstOrDefaultAsync(o => o.OrderId == id);
                 if(order == null)
                 {
                     return NotFound($"Pedido com id {id} não encontrado");

@@ -18,11 +18,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("order/{goldListingId:int}")]
-        public ActionResult<IEnumerable<Order>> GetGoldListingOrder(int goldListingId)
+        public async Task<ActionResult<IEnumerable<Order>>> GetGoldListingOrder(int goldListingId)
         {
             try
             {
-                var orders = _context.Order.Where(o => o.GoldListingId == goldListingId).ToList();
+                var orders = await _context.Order.Where(o => o.GoldListingId == goldListingId).ToListAsync();
                 if(!orders.Any())
                 {
                     return NotFound($"Nenhum pedido encontrado para o anuncio com id {goldListingId}");
@@ -38,11 +38,11 @@ namespace ApiWgold.Controllers
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<GoldListing>> Get()
+        public async Task<ActionResult<IEnumerable<GoldListing>>> Get()
         {
             try
             {
-                return _context.GoldListing.ToList();
+                return await _context.GoldListing.ToListAsync();
             }
             catch (Exception){
                 return StatusCode(StatusCodes.Status500InternalServerError,
@@ -51,11 +51,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterGoldListing")]
-        public ActionResult<GoldListing> Get(int id)
+        public async Task<ActionResult<GoldListing>> Get(int id)
         {
             try
             {
-                var goldListings = _context.GoldListing.FirstOrDefault(g => g.GoldListingId == id);
+                var goldListings = await _context.GoldListing.AsNoTracking().FirstOrDefaultAsync(g => g.GoldListingId == id);
                 if (goldListings == null)
                 {
                     return NotFound($"Nenhum anuncio encontrado com o id {id}");

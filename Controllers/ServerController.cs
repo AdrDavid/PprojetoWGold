@@ -19,11 +19,11 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet("goldlisting/{serverId:int}")]
-        public ActionResult<IEnumerable<GoldListing>> GetServerGoldListing(int serverId)
+        public async Task<ActionResult<IEnumerable<GoldListing>>> GetServerGoldListing(int serverId)
         {
             try
             {
-                var goldListings = _context.GoldListing.Where(gl => gl.ServerId == serverId).ToList();
+                var goldListings = await _context.GoldListing.Where(gl => gl.ServerId == serverId).ToListAsync();
 
                 if(!goldListings.Any())
                 {
@@ -39,11 +39,11 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Server>> Get()
+        public async Task<ActionResult<IEnumerable<Server>>> Get()
         {
             try
             {
-                return _context.Server.ToList();            
+                return await _context.Server.AsNoTracking().ToListAsync();            
             }
             catch (Exception)
             {
@@ -53,11 +53,11 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterServer")]
-        public ActionResult<Server> Get(int id)
+        public async Task<ActionResult<Server>> Get(int id)
         {
             try
             {
-                var server = _context.Server.FirstOrDefault(s => s.ServerId == id);
+                var server = await _context.Server.AsNoTracking().FirstOrDefaultAsync(s => s.ServerId == id);
                 if (server == null)
                 {
                     return NotFound($"Servidor com id {id} não encontrado");

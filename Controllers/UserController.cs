@@ -18,11 +18,11 @@ namespace ApiWgold.Controllers
 
 
         [HttpGet("goldlisting/{userId:int}")]
-        public ActionResult<IEnumerable<GoldListing>> GetUserGoldListing(int userId)
+        public async Task<ActionResult<IEnumerable<GoldListing>>> GetUserGoldListing(int userId)
         {
             try
             {
-                var goldListings = _context.GoldListing.Where(gl => gl.UserId == userId).ToList();
+                var goldListings = await _context.GoldListing.Where(gl => gl.UserId == userId).ToListAsync();
 
                 if(!goldListings.Any())
                 {
@@ -39,11 +39,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("order/{userId:int}")]
-        public ActionResult<IEnumerable<Order>> GetUserOrder(int userId)
+        public async Task<ActionResult<IEnumerable<Order>>> GetUserOrder(int userId)
         {
             try
             {
-                var orders = _context.Order.Where(o => o.BuyerId == userId).ToList();
+                var orders = await _context.Order.Where(o => o.BuyerId == userId).ToListAsync();
                 if(!orders.Any())
                 {
                     return NotFound($"Nenhum pedido encontrado para o usuario com id {userId}");
@@ -58,11 +58,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<User>> Get()
+        public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             try
             {
-                return _context.User.AsNoTracking().ToList();
+                return await _context.User.AsNoTracking().ToListAsync();
             }
             catch (Exception)
             {
@@ -71,11 +71,11 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterUsuario")]
-        public ActionResult<User> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
             try
             {
-                var user = _context.User.FirstOrDefault(u => u.UserId == id);
+                var user = await _context.User.FirstOrDefaultAsync(u => u.UserId == id);
                 if(user == null)
                 {
                     return NotFound($"Usuario com id {id} não encontrado");
