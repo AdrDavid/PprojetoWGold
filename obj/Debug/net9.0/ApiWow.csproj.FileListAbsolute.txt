@@ -253,4 +253,8 @@ C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\refint\ApiWow.dll
 C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\ApiWow.pdb
 C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\ApiWow.genruntimeconfig.cache
 C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\ref\ApiWow.dll
+C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\Stripe.net.dll
+C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
 C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

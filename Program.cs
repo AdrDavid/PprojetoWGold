@@ -52,5 +52,5 @@ app.UseCors(OrigensComAcessoPermitido);
 app.UseAuthorization();
 
 app.MapControllers();
-
+Stripe.StripeConfiguration.ApiKey = "sk_test_51QAywMF7dsl0WybTTkH6QCusCxcHck4mg4e9cOUrNo5XnqMvsjJKzxe8zIks281kVkFu0UJNmOOW11913gyyPHH200dHTsa9Ss";
 app.Run();

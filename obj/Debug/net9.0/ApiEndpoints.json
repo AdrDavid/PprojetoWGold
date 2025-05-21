@@ -156,6 +156,32 @@
     ]
   },
   {
+    "ContainingType": "ApiWow.Controllers.CheckoutApiController",
+    "Method": "StartCheckout",
+    "RelativePath": "create-checkout-session/start",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "goldListingId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "buyerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "quantityK",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ApiWgold.Controllers.GameController",
     "Method": "Get",
     "RelativePath": "Game",

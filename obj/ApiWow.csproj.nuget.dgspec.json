@@ -67,6 +67,10 @@
             "Scalar.AspNetCore": {
               "target": "Package",
               "version": "[2.2.2, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[48.1.0, )"
             }
           },
           "imports": [
