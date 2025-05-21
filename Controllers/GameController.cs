@@ -2,6 +2,7 @@
 
 using ApiWgold.Context;
 using ApiWgold.Models;
+using ApiWow.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,11 +40,18 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> Get()
+        public async Task<ActionResult<IEnumerable<GameDTO>>> Get()
         {
             try
             {
-                return await _context.Game.AsNoTracking().ToListAsync();
+                var games = await _context.Game.AsNoTracking().Select(g => new GameDTO
+                {
+                    GameId = g.GameId,
+                    Name = g.Name,
+                    CreatedAt = g.CreatedAt
+                }).ToListAsync();
+
+                return Ok(games);
             }
             catch (Exception)
             {

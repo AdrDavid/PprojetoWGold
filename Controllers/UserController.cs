@@ -1,5 +1,6 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
+using ApiWow.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,11 +59,24 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> Get()
         {
             try
             {
-                return await _context.User.AsNoTracking().ToListAsync();
+                // Ensure the query is not null and map User to UserDTO
+                var users = await _context.User
+                    .AsNoTracking()
+                    .Select(u => new UserDTO
+                    {
+                        UserId = u.UserId,
+                        Username = u.Username,
+                        Email = u.Email,
+                        Password = u.Password,
+                        CreatedAt = u.CreatedAt
+                    })
+                    .ToListAsync();
+
+                return Ok(users);
             }
             catch (Exception)
             {
@@ -73,6 +87,8 @@ namespace ApiWgold.Controllers
         [HttpGet("{id:int}", Name = "ObterUsuario")]
         public async Task<ActionResult<User>> Get(int id)
         {
+
+            //throw new Exception("excecao ao retornao usuario pelo id");
             try
             {
                 var user = await _context.User.FirstOrDefaultAsync(u => u.UserId == id);
@@ -83,26 +99,43 @@ namespace ApiWgold.Controllers
                 return Ok(user);
             }
             catch (Exception)
-            {
+            { 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro de Servidor Contate o DEPARTAMENTO DE TI");
             }
         }
 
         [HttpPost]
-        public ActionResult Post(User user)
+        public ActionResult Post(UserCreateDTO userDto)
         {
             try
             {
-                if(user is null)
+                if (userDto is null)
                 {
                     return BadRequest("Dados Invalidos");
                 }
 
-                    _context.User.Add(user);
-                    _context.SaveChanges();
+                var user = new User
+                {
+                    Username = userDto.Username,
+                    Email = userDto.Email,
+                    Password = userDto.Password,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _context.User.Add(user);
+                _context.SaveChanges();
+
+                var result = new UserDTO
+                {
+                    UserId = user.UserId,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Password = user.Password,
+                    CreatedAt = user.CreatedAt
+                };
 
                     return new CreatedAtRouteResult("ObterUsuario",
-                    new{id = user.UserId}, user);
+                    new{id = result.UserId}, result);
             }
             catch (Exception)
             {
@@ -112,18 +145,34 @@ namespace ApiWgold.Controllers
 
 
         [HttpPatch("{id:int}")]
-        public ActionResult Patch(int id, User user)
+        public ActionResult Patch(int id, UserCreateDTO userDto)
         {
             try
             {
-                if(id != user.UserId)
+                var user = _context.User.FirstOrDefault(u => u.UserId == id);
+                if(user == null)
                 {
                     return BadRequest("Dados invalidos");
                 }
+
+
+
+                user.Username = userDto.Username;
+                user.Email = userDto.Email;
+                user.Password = userDto.Password;
+               
                 
                 _context.Entry(user).State = EntityState.Modified;
                 _context.SaveChanges();
-                return Ok(user);
+
+                var result = new UserDTO()
+                {
+                    UserId = user.UserId,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Password = user.Password,
+                };
+                return Ok(result);
             }
             catch (Exception)
             {

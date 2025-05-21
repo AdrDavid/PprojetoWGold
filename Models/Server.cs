@@ -11,9 +11,10 @@ namespace ApiWgold.Models
         {
             GoldListings = new Collection<GoldListing>();
         }
+        [JsonIgnore]
         public int ServerId { get; set; }
 
-        public string? Servers { get; set; }
+        public string? ServerName { get; set; }
 
         public int GamesId { get; set; }
         [JsonIgnore]

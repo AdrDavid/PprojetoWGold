@@ -8,6 +8,7 @@ namespace ApiWgold.Models
     public class Order
     {
         [Key]
+        [JsonIgnore]
         public int OrderId { get; set; }
 
         // ID do comprador (usuário que está comprando gold)
@@ -32,7 +33,7 @@ namespace ApiWgold.Models
         // Status do pedido
         [Required][StringLength(30)]
         public string Status { get; set; } = "pending"; // pode ser 'pending', 'completed', 'cancelled'
-
+        [JsonIgnore]
         public DateTime CreatedAt { get; set; }
     }
 }

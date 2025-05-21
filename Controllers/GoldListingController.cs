@@ -1,5 +1,6 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
+using ApiWow.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,11 +39,34 @@ namespace ApiWgold.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GoldListing>>> Get()
+        public async Task<ActionResult<IEnumerable<GoldListingDTO>>> Get()
         {
             try
             {
-                return await _context.GoldListing.ToListAsync();
+                var listings = await _context.GoldListing
+                    .Include(g => g.Server)
+                    .Include(g => g.User)
+                    .Select(g => new GoldListingDTO
+                    {
+                        GoldListingId = g.GoldListingId,
+                        User = new UserSummaryDTO
+                        {
+                            UserId = g.User.UserId,
+                            Username = g.User.Username
+                        },
+                        Server = new ServerSummaryDTO
+                        {
+                            ServerId = g.Server.ServerId,
+                            ServerName = g.Server.ServerName
+                        },
+                        PricePerK = g.PricePerK,
+                        Qtd = g.Qtd,
+                        Faccao = g.Faccao,
+                        CreatedAt = g.CreatedAt
+                    })
+                    .ToListAsync();
+
+                return Ok(listings);
             }
             catch (Exception){
                 return StatusCode(StatusCodes.Status500InternalServerError,

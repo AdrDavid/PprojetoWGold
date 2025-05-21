@@ -1,5 +1,6 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
+using ApiWow.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,11 +40,25 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Server>>> Get()
+        public async Task<ActionResult<IEnumerable<ServerDTO>>> Get()
         {
             try
             {
-                return await _context.Server.AsNoTracking().ToListAsync();            
+                var servers = await _context.Server.AsNoTracking()
+                    .Include(s => s.Games)
+                    .Select(s => new ServerDTO
+                {
+                    ServerId = s.ServerId,
+                    ServerName = s.ServerName,
+                    Game = new GameDTO
+                    {
+                        GameId = s.Games.GameId,
+                        Name = s.Games.Name
+                    },
+                    CreatedAt = s.CreatedAt
+                }).ToListAsync();
+
+                return Ok(servers);
             }
             catch (Exception)
             {

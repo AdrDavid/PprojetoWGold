@@ -13,7 +13,7 @@ namespace ApiWgold.Models
             Order = new Collection<Order>();
             GoldListing = new Collection<GoldListing>();
         }
-        [JsonIgnore]
+        //[JsonIgnore]
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "O nome de usuário é obrigatório.")]
@@ -24,7 +24,7 @@ namespace ApiWgold.Models
         public string? Email { get; set; }
         public string? Password { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public DateTime CreatedAt { get; set; }
 
         [JsonIgnore]

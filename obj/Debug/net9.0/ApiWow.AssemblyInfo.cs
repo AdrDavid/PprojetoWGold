@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiWow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2be0093ad73d4f6729087bd656c9057a5b33bb58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c2db6fe3ec0d704142d87faae534c8b9ce42305")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiWow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiWow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

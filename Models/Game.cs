@@ -13,6 +13,7 @@ namespace ApiWgold.Models
             Server = new Collection<Server>();
         }
         [Key]
+        [JsonIgnore]
         public int GameId { get; set; }
 
         [Required][StringLength(100)]
@@ -21,6 +22,7 @@ namespace ApiWgold.Models
         [JsonIgnore]
         public ICollection<Server>? Server { get; set; }
 
+        [JsonIgnore]
         public DateTime CreatedAt { get; set; }
     }
 }

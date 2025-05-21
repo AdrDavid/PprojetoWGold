@@ -13,6 +13,7 @@ namespace ApiWgold.Models
             Order = new Collection<Order>();
         }
         [Key]
+        [JsonIgnore]
         public int GoldListingId { get; set; }
         public int UserId { get; set; }
 
@@ -25,6 +26,9 @@ namespace ApiWgold.Models
         [Required][Column(TypeName = "decimal(10,2)")]
         public decimal PricePerK { get; set; }
         public int Qtd { get; set; }
+        [Required][StringLength(30)]
+        public string? Faccao { get; set; }
+
         public DateTime CreatedAt { get; set; }
         [JsonIgnore]
         public ICollection<Order>? Order { get; set; }

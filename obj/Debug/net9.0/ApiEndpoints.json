@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWgold.Models.GoldListing, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWow.DTOs.GoldListingDTO, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -165,7 +165,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWgold.Models.Game, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWow.DTOs.GameDTO, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -354,7 +354,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWgold.Models.Server, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWow.DTOs.ServerDTO, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -443,7 +443,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWgold.Models.User, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWow.DTOs.UserDTO, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -462,8 +462,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "ApiWgold.Models.User",
+        "Name": "userDto",
+        "Type": "ApiWow.DTOs.UserCreateDTO",
         "IsRequired": true
       }
     ],
@@ -510,8 +510,8 @@
         "IsRequired": true
       },
       {
-        "Name": "user",
-        "Type": "ApiWgold.Models.User",
+        "Name": "userDto",
+        "Type": "ApiWow.DTOs.UserCreateDTO",
         "IsRequired": true
       }
     ],
