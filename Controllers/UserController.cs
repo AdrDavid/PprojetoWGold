@@ -72,6 +72,7 @@ namespace ApiWgold.Controllers
                         Username = u.Username,
                         Email = u.Email,
                         Password = u.Password,
+                        ChaveVendedor = u.ChaveVendedor,
                         CreatedAt = u.CreatedAt
                     })
                     .ToListAsync();

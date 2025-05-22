@@ -26,6 +26,11 @@ namespace ApiWow.Controllers
             if (goldListing == null)
                 return NotFound("GoldListing não encontrado");
 
+            //busca o vendedor
+            var saller = _context.User.FirstOrDefault(u => u.UserId == goldListing.UserId);
+            if (saller == null || string.IsNullOrEmpty(saller.ChaveVendedor))
+                return NotFound("Vendedor não encontrado");
+
             // 2. Calcular o valor total
             var total = goldListing.PricePerK * (quantity / 1000);
 
@@ -41,6 +46,9 @@ namespace ApiWow.Controllers
             };
             _context.Order.Add(order);
             _context.SaveChanges();
+
+            //comissao
+            var applicationFee = (long)(total * 100 * 0.10m);
 
             // 4. Criar a sessão Stripe
             var domain = "http://localhost:7199";
@@ -65,6 +73,14 @@ namespace ApiWow.Controllers
                 Mode = "payment",
                 SuccessUrl = domain + "?success=true&orderId=" + order.OrderId,
                 CancelUrl = domain + "?canceled=true&orderId=" + order.OrderId,
+                PaymentIntentData = new SessionPaymentIntentDataOptions
+                { 
+                    ApplicationFeeAmount = applicationFee,
+                    TransferData = new SessionPaymentIntentDataTransferDataOptions
+                    {
+                        Destination = saller.ChaveVendedor 
+                    }
+                }
             };
             var service = new SessionService();
             Session session = service.Create(options);

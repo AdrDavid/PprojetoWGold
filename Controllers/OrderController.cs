@@ -1,5 +1,6 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
+using ApiWow.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,11 +19,43 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> Get()
+        public async Task<ActionResult<IEnumerable<OrderDTO>>> Get()
         {
             try
             {
-                return await _context.Order.ToListAsync();
+                var orders = await _context.Order.AsNoTracking()
+                    .Include(o => o.GoldListing)
+                        .ThenInclude(g => g.User)
+                    .Include(o => o.GoldListing)
+                        .ThenInclude(g => g.Server)
+                    .Select(o => new OrderDTO
+                    {
+                        OrderId = o.OrderId,
+                        BuyerId = o.BuyerId,
+                        GoldListing = new GoldListingSummaryDTO
+                        {
+                            GoldListingId = o.GoldListing.GoldListingId,
+                            Faccao = o.GoldListing.Faccao,
+                            PricePerK = o.GoldListing.PricePerK,
+                            CreatedAt = o.GoldListing.CreatedAt,
+                            User = o.GoldListing.User == null ? null : new UserSummaryDTO
+                            {
+                                UserId = o.GoldListing.User.UserId,
+                                Username = o.GoldListing.User.Username
+                            },
+                            Server = o.GoldListing.Server == null ? null : new ServerSummaryDTO
+                            {
+                                ServerId = o.GoldListing.Server.ServerId,
+                                ServerName = o.GoldListing.Server.ServerName // ou o campo correto do nome do servidor
+                            }
+                        },
+                        Quantity = o.Quantity,
+                        TotalPrice = o.TotalPrice,
+                        Status = o.Status,
+                        CreatedAt = o.CreatedAt
+                    }).ToListAsync();
+
+                return Ok(orders);
             }
             catch (Exception)
             {

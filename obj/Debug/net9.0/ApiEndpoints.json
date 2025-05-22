@@ -156,6 +156,22 @@
     ]
   },
   {
+    "ContainingType": "ApiWow.Controllers.SellerController",
+    "Method": "StartOnboarding",
+    "RelativePath": "api/seller/onbording/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ApiWow.Controllers.CheckoutApiController",
     "Method": "StartCheckout",
     "RelativePath": "create-checkout-session/start",
@@ -317,7 +333,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWgold.Models.Order, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ApiWow.DTOs.OrderDTO, ApiWow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
