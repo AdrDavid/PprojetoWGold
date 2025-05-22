@@ -19,7 +19,7 @@ namespace ApiWow.Controllers
         }
 
         [HttpPost("start")]
-        public ActionResult StartCheckout(int goldListingId, int buyerId, int quantityK)
+        public ActionResult StartCheckout(int goldListingId, int buyerId, int quantity)
         {
             // 1. Buscar o anúncio
             var goldListing = _context.GoldListing.FirstOrDefault(g => g.GoldListingId == goldListingId);
@@ -27,14 +27,14 @@ namespace ApiWow.Controllers
                 return NotFound("GoldListing não encontrado");
 
             // 2. Calcular o valor total
-            var total = goldListing.PricePerK * quantityK;
+            var total = goldListing.PricePerK * (quantity / 1000);
 
             // 3. Criar o pedido (Order)
             var order = new Order
             {
                 BuyerId = buyerId,
                 GoldListingId = goldListingId,
-                QuantityK = quantityK,
+                Quantity = quantity,
                 TotalPrice = total,
                 Status = "pending",
                 CreatedAt = DateTime.UtcNow
@@ -56,7 +56,7 @@ namespace ApiWow.Controllers
                             Currency = "brl",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = $"Gold {quantityK}K - {goldListing.Faccao}"
+                                Name = $"Gold {quantity} - {goldListing.Faccao}"
                             }
                         },
                         Quantity = 1,
@@ -92,19 +92,27 @@ namespace ApiWow.Controllers
             var stripeEvent = EventUtility.ConstructEvent(
                 json,
                 Request.Headers["Stripe-Signature"],
-                "SUA_CHAVE_DE_ASSINATURA_DO_WEBHOOK"
+                "whsec_e56554513910a9bf260868cba011f51f2fc2b60a56e22ffc5edf4cccf8346bb2"
             );
 
-            if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+            if (stripeEvent.Type == "checkout.session.completed")
             {
                 var session = stripeEvent.Data.Object as Session;
                 // Recupere o orderId da SuccessUrl ou dos metadados da sessão
                 var orderId = int.Parse(session.SuccessUrl.Split("orderId=")[1]);
                 var order = _context.Order.FirstOrDefault(o => o.OrderId == orderId);
-                if (order != null)
+
+                if (order != null && order.Status != "completed")
                 {
-                    order.Status = "completed";
-                    _context.SaveChanges();
+                    var goldListing = _context.GoldListing.FirstOrDefault(gl =>
+                    gl.GoldListingId == order.GoldListingId);
+
+                    if(goldListing != null && goldListing.Qtd >= order.Quantity)
+                    {
+                        goldListing.Qtd -= order.Quantity;
+                        order.Status = "completed";
+                        _context.SaveChanges();
+                    }
                 }
             }
 

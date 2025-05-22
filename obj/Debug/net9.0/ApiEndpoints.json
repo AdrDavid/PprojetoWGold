@@ -174,7 +174,7 @@
         "IsRequired": false
       },
       {
-        "Name": "quantityK",
+        "Name": "quantity",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -458,6 +458,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ApiWow.Controllers.StripeWebhookController",
+    "Method": "Post",
+    "RelativePath": "stripe/webhook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "ApiWgold.Controllers.UserController",

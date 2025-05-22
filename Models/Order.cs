@@ -24,7 +24,7 @@ namespace ApiWgold.Models
 
         // Quantidade comprada em milhares (ex: 3K = 3000 gold)
         [Required][Range(1, int.MaxValue)]
-        public int QuantityK { get; set; }
+        public int Quantity { get; set; }
 
         // Valor total da compra
         [Required][Column(TypeName = "decimal(18,2)")]

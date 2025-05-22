@@ -68,14 +68,6 @@ namespace ApiGold.Controllers
                     return NotFound($"Anuncio com id {order.GoldListingId} não encontrado");
                 }
 
-                if(goldListing.Qtd < order.QuantityK)
-                {
-                    return BadRequest($"Quantidade de {goldListing.Qtd} é menor que a quantidade do pedido {order.QuantityK}");
-                }
-
-
-                goldListing.Qtd -= order.QuantityK;
-
                 _context.Order.Add(order);
                 _context.SaveChanges();
 
