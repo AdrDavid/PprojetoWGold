@@ -25,6 +25,7 @@ namespace ApiWgold.Models
 
         [Required(ErrorMessage = "O email é obrigatório.")]
         public string? Email { get; set; }
+        public string Role { get; set; } = "UsuarioBase";
         public string? Password { get; set; }
         public string? ChaveVendedor { get; set; }
 

@@ -13,5 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Order>? Order { get; set; }
     public DbSet<Server>? Server { get; set; }
     public DbSet<User>? User { get; set; }
+
+    
     //e faz as outras
 }

@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using ApiWgold.Context;
 using ApiWow.Extensions;
+using ApiWow.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -32,12 +33,17 @@ builder.Services.AddCors(options =>
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// config do banco
+string postgresConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(postgresConnection));
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 
 //config do jwt
-var secretKey = builder.Configuration["JWT: SecretKey"]
+var secretKey = builder.Configuration["JWT:SecretKey"]
     ?? throw new ArgumentNullException("invalid secret key");
 
 builder.Services.AddAuthentication(options =>
@@ -62,11 +68,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// config do banco
-string postgresConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddScoped<ITokenService, TokenService>();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(postgresConnection));
+
 
 var app = builder.Build();
 

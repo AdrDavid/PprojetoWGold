@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "iJp6OiD/lU4=",
+  "dgSpecHash": "E7Z8ezINHV8=",
   "success": true,
   "projectFilePath": "C:\\Estudos\\WGOld\\GoldApi\\ApiWow.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\NPD\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\NPD\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\NPD\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.5\\microsoft.aspnetcore.authentication.jwtbearer.9.0.5.nupkg.sha512",
     "C:\\Users\\NPD\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
