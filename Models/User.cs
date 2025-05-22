@@ -8,6 +8,9 @@ namespace ApiWgold.Models
     public class User
     {
 
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
+
         public User()
         {
             Order = new Collection<Order>();

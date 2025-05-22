@@ -1,6 +1,7 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
 using ApiWow.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
@@ -40,6 +41,7 @@ namespace ApiWgold.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<GoldListingDTO>>> Get()
         {
             try
