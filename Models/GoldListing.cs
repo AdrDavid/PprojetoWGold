@@ -16,13 +16,13 @@ namespace ApiWgold.Models
         [JsonIgnore]
         public int GoldListingId { get; set; }
         public int UserId { get; set; }
-
+        
         [JsonIgnore]
         public User? User { get; set; }
         public int ServerId { get; set; }
         [JsonIgnore]
         public Server? Server { get; set; }
-        
+
         [Required][Column(TypeName = "decimal(10,2)")]
         public decimal PricePerK { get; set; }
         public int Qtd { get; set; }

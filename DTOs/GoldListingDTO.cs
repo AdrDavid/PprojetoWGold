@@ -12,7 +12,9 @@ namespace ApiWow.DTOs
         public int Qtd { get; set; }
         public string? Faccao { get; set; }
         public UserSummaryDTO? User { get; set; }
-        public ServerSummaryDTO? Server { get; set; }
+        public ServerDTO? Server { get; set; }
+
+        public GameDTO? Game { get; set; }
         public DateTime CreatedAt { get; set; }
        
     }

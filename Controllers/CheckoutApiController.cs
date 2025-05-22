@@ -19,7 +19,7 @@ namespace ApiWow.Controllers
         }
 
         [HttpPost("start")]
-        public ActionResult StartCheckout(int goldListingId, int buyerId, int quantity)
+        public ActionResult StartCheckout(int goldListingId, int buyerId, int quantity, string charName)
         {
             // 1. Buscar o anúncio
             var goldListing = _context.GoldListing.FirstOrDefault(g => g.GoldListingId == goldListingId);
@@ -39,6 +39,7 @@ namespace ApiWow.Controllers
             {
                 BuyerId = buyerId,
                 GoldListingId = goldListingId,
+                CharName = charName, 
                 Quantity = quantity,
                 TotalPrice = total,
                 Status = "pending",
@@ -51,7 +52,7 @@ namespace ApiWow.Controllers
             var applicationFee = (long)(total * 100 * 0.10m);
 
             // 4. Criar a sessão Stripe
-            var domain = "http://localhost:7199";
+            var domain = "http://localhost:5000";
             var options = new SessionCreateOptions
             {
                 LineItems = new List<SessionLineItemOptions>
@@ -71,7 +72,7 @@ namespace ApiWow.Controllers
                     },
                 },
                 Mode = "payment",
-                SuccessUrl = domain + "?success=true&orderId=" + order.OrderId,
+                SuccessUrl = domain + "/sucesso?orderId=" + order.OrderId,
                 CancelUrl = domain + "?canceled=true&orderId=" + order.OrderId,
                 PaymentIntentData = new SessionPaymentIntentDataOptions
                 { 

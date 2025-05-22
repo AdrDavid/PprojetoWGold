@@ -16,6 +16,7 @@ namespace ApiWgold.Models
         [JsonIgnore]
         public User? Buyer { get; set; }
 
+        public string? CharName { get; set; } // Nome do personagem do comprador
         // ID do anúncio de venda de gold
         public int GoldListingId { get; set; }
     

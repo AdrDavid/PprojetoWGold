@@ -3,6 +3,7 @@ using ApiWgold.Models;
 using ApiWow.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace ApiWgold.Controllers
 {
@@ -46,6 +47,7 @@ namespace ApiWgold.Controllers
                 var listings = await _context.GoldListing
                     .Include(g => g.Server)
                     .Include(g => g.User)
+                    .Include(g => g.Server.Games)
                     .Select(g => new GoldListingDTO
                     {
                         GoldListingId = g.GoldListingId,
@@ -54,10 +56,15 @@ namespace ApiWgold.Controllers
                             UserId = g.User.UserId,
                             Username = g.User.Username
                         },
-                        Server = new ServerSummaryDTO
+                        Server = new ServerDTO
                         {
                             ServerId = g.Server.ServerId,
-                            ServerName = g.Server.ServerName
+                            ServerName = g.Server.ServerName,
+                            Game = new GameDTO
+                            {
+                                GameId = g.Server.Games.GameId,
+                                Name = g.Server.Games.Name
+                            }
                         },
                         PricePerK = g.PricePerK,
                         Qtd = g.Qtd,
@@ -75,16 +82,41 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterGoldListing")]
-        public async Task<ActionResult<GoldListing>> Get(int id)
+        public async Task<ActionResult<GoldListingDTO>> Get(int id)
         {
             try
             {
-                var goldListings = await _context.GoldListing.AsNoTracking().FirstOrDefaultAsync(g => g.GoldListingId == id);
-                if (goldListings == null)
-                {
-                    return NotFound($"Nenhum anuncio encontrado com o id {id}");
-                }
-                return Ok(goldListings);
+                var listings = await _context.GoldListing.AsNoTracking()
+                    .Where(g => g.GoldListingId == id)
+                    .Include(g => g.Server)
+                    .Include(g => g.User)
+                    .Include(g => g.Server.Games)
+                    .Select(g => new GoldListingDTO
+                    {
+                        GoldListingId = g.GoldListingId,
+                        User = new UserSummaryDTO
+                        {
+                            UserId = g.User.UserId,
+                            Username = g.User.Username
+                        },
+                        Server = new ServerDTO
+                        {
+                            ServerId = g.Server.ServerId,
+                            ServerName = g.Server.ServerName,
+                            Game = new GameDTO
+                            {
+                                GameId = g.Server.Games.GameId,
+                                Name = g.Server.Games.Name
+                            }
+                        },
+                        PricePerK = g.PricePerK,
+                        Qtd = g.Qtd,
+                        Faccao = g.Faccao,
+                        CreatedAt = g.CreatedAt
+                    })
+                    .FirstOrDefaultAsync();
+
+                return Ok(listings);
             }
             catch (Exception)
             {

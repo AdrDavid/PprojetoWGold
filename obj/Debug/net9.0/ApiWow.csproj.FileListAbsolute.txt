@@ -256,9 +256,9 @@ C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\Stripe.net.dll
 C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
 C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
-C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\Stripe.net.dll
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

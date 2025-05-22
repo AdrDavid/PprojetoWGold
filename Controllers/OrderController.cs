@@ -32,6 +32,7 @@ namespace ApiGold.Controllers
                     {
                         OrderId = o.OrderId,
                         BuyerId = o.BuyerId,
+                        CharName = o.CharName,
                         GoldListing = new GoldListingSummaryDTO
                         {
                             GoldListingId = o.GoldListing.GoldListingId,
@@ -66,16 +67,44 @@ namespace ApiGold.Controllers
 
 
         [HttpGet("{id:int}", Name = "ObterOrder")]
-        public async Task<ActionResult<Order>> Get(int id)
+        public async Task<ActionResult<OrderDTO>> Get(int id)
         {
             try
             {
-                var order = await _context.Order.AsNoTracking().FirstOrDefaultAsync(o => o.OrderId == id);
-                if(order == null)
-                {
-                    return NotFound($"Pedido com id {id} não encontrado");
-                }
-                return Ok(order);
+                var orders = await _context.Order.AsNoTracking()
+                     .Where(o => o.OrderId == id)
+                     .Include(o => o.GoldListing)
+                         .ThenInclude(g => g.User)
+                     .Include(o => o.GoldListing)
+                         .ThenInclude(g => g.Server)
+                     .Select(o => new OrderDTO
+                     {
+                         OrderId = o.OrderId,
+                         BuyerId = o.BuyerId,
+                         CharName = o.CharName,
+                         GoldListing = new GoldListingSummaryDTO
+                         {
+                             GoldListingId = o.GoldListing.GoldListingId,
+                             Faccao = o.GoldListing.Faccao,
+                             PricePerK = o.GoldListing.PricePerK,
+                             CreatedAt = o.GoldListing.CreatedAt,
+                             User = o.GoldListing.User == null ? null : new UserSummaryDTO
+                             {
+                                 UserId = o.GoldListing.User.UserId,
+                                 Username = o.GoldListing.User.Username
+                             },
+                             Server = o.GoldListing.Server == null ? null : new ServerSummaryDTO
+                             {
+                                 ServerId = o.GoldListing.Server.ServerId,
+                                 ServerName = o.GoldListing.Server.ServerName // ou o campo correto do nome do servidor
+                             }
+                         },
+                         Quantity = o.Quantity,
+                         TotalPrice = o.TotalPrice,
+                         Status = o.Status,
+                         CreatedAt = o.CreatedAt
+                     }).FirstOrDefaultAsync();
+                return Ok(orders);
             }
             catch (Exception)
             {

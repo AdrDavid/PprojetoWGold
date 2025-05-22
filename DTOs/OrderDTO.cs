@@ -13,6 +13,8 @@ namespace ApiWow.DTOs
     
         public int GoldListingId { get; set; }
 
+        public string? CharName { get; set; }
+
         public GoldListingSummaryDTO? GoldListing { get; set; }
         [Range(1, int.MaxValue)]
         public int Quantity { get; set; }

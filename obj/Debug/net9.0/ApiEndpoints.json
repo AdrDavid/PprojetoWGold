@@ -61,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ApiWgold.Models.GoldListing",
+        "Type": "ApiWow.DTOs.GoldListingDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -192,6 +192,11 @@
       {
         "Name": "quantity",
         "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "charName",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -375,7 +380,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ApiWgold.Models.Order",
+        "Type": "ApiWow.DTOs.OrderDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
