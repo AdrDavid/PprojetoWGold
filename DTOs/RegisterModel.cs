@@ -10,6 +10,8 @@ namespace ApiWow.DTOs
         [EmailAddress(ErrorMessage = "Email invalido")]
         public string? Email { get; set; }
 
+        //public string Role { get; set; }
+
         [Required(ErrorMessage = "Senha e obrigatoria")]
         public string? Password { get; set; }
     }

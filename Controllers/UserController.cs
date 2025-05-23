@@ -71,7 +71,6 @@ namespace ApiWgold.Controllers
                         UserId = u.UserId,
                         Username = u.Username,
                         Email = u.Email,
-                        Password = u.Password,
                         ChaveVendedor = u.ChaveVendedor,
                         CreatedAt = u.CreatedAt
                     })
@@ -131,7 +130,6 @@ namespace ApiWgold.Controllers
                     UserId = user.UserId,
                     Username = user.Username,
                     Email = user.Email,
-                    Password = user.Password,
                     CreatedAt = user.CreatedAt
                 };
 
@@ -171,7 +169,6 @@ namespace ApiWgold.Controllers
                     UserId = user.UserId,
                     Username = user.Username,
                     Email = user.Email,
-                    Password = user.Password,
                 };
                 return Ok(result);
             }
