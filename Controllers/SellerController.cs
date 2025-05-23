@@ -39,20 +39,22 @@ namespace ApiWow.Controllers
 
             //salvar o accont.Id no campo ChaveVendedor
             user.ChaveVendedor = account.Id;
+            user.Role = "Aguardando_Aprovacao";
             _context.SaveChanges();
 
             // gerar o link de onboarding
             var accountLinkOptions = new AccountLinkCreateOptions
             {
                 Account = account.Id,
-                RefreshUrl = "https://seusite.com/refresh",
-                ReturnUrl = "https://seusite.com/retorno",
+                RefreshUrl = "http://localhost:5000/vender",
+                ReturnUrl = "http://localhost:5000/vender",
                 Type = "account_onboarding",
             };
 
             var accountLinkService = new AccountLinkService();
             var accountLink = await accountLinkService.CreateAsync(accountLinkOptions);
-
+            
+           
             //retornar o link pro front redirecionar o usuario
             return Ok(new {onBordingUrl = accountLink.Url});
         }

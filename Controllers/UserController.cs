@@ -1,6 +1,7 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
 using ApiWow.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace ApiWgold.Controllers
 
 
         [HttpGet("goldlisting/{userId:int}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<GoldListing>>> GetUserGoldListing(int userId)
         {
             try
@@ -40,6 +42,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("order/{userId:int}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Order>>> GetUserOrder(int userId)
         {
             try
@@ -59,6 +62,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<UserDTO>>> Get()
         {
             try
@@ -71,6 +75,7 @@ namespace ApiWgold.Controllers
                         UserId = u.UserId,
                         Username = u.Username,
                         Email = u.Email,
+                        Role = u.Role,
                         ChaveVendedor = u.ChaveVendedor,
                         CreatedAt = u.CreatedAt
                     })
@@ -85,6 +90,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterUsuario")]
+        [Authorize]
         public async Task<ActionResult<User>> Get(int id)
         {
 
@@ -104,47 +110,11 @@ namespace ApiWgold.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Post(UserCreateDTO userDto)
-        {
-            try
-            {
-                if (userDto is null)
-                {
-                    return BadRequest("Dados Invalidos");
-                }
-
-                var user = new User
-                {
-                    Username = userDto.Username,
-                    Email = userDto.Email,
-                    Password = userDto.Password,
-                    CreatedAt = DateTime.UtcNow
-                };
-
-                _context.User.Add(user);
-                _context.SaveChanges();
-
-                var result = new UserDTO
-                {
-                    UserId = user.UserId,
-                    Username = user.Username,
-                    Email = user.Email,
-                    CreatedAt = user.CreatedAt
-                };
-
-                    return new CreatedAtRouteResult("ObterUsuario",
-                    new{id = result.UserId}, result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro de Servidor Contate o DEPARTAMENTO DE TI");
-            }
-        }
 
 
         [HttpPatch("{id:int}")]
-        public ActionResult Patch(int id, UserCreateDTO userDto)
+        [Authorize]
+        public ActionResult Aprovar(int id)
         {
             try
             {
@@ -154,13 +124,9 @@ namespace ApiWgold.Controllers
                     return BadRequest("Dados invalidos");
                 }
 
+                user.Role = "UserVendedor";
 
 
-                user.Username = userDto.Username;
-                user.Email = userDto.Email;
-                user.Password = userDto.Password;
-               
-                
                 _context.Entry(user).State = EntityState.Modified;
                 _context.SaveChanges();
 
@@ -180,7 +146,10 @@ namespace ApiWgold.Controllers
         }
 
 
+       
+
         [HttpDelete("{id:int}")]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try

@@ -221,6 +221,22 @@
   },
   {
     "ContainingType": "ApiWow.Controllers.AuthController",
+    "Method": "RegisterAdm",
+    "RelativePath": "Auth/register/adm",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ApiWow.DTOs.RegisterModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiWow.Controllers.AuthController",
     "Method": "Revoke",
     "RelativePath": "Auth/revoke/{Username}",
     "HttpMethod": "POST",
@@ -596,22 +612,6 @@
   },
   {
     "ContainingType": "ApiWgold.Controllers.UserController",
-    "Method": "Post",
-    "RelativePath": "User",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userDto",
-        "Type": "ApiWow.DTOs.UserCreateDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ApiWgold.Controllers.UserController",
     "Method": "Get",
     "RelativePath": "User/{id}",
     "HttpMethod": "GET",
@@ -639,7 +639,7 @@
   },
   {
     "ContainingType": "ApiWgold.Controllers.UserController",
-    "Method": "Patch",
+    "Method": "Aprovar",
     "RelativePath": "User/{id}",
     "HttpMethod": "PATCH",
     "IsController": true,
@@ -648,11 +648,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "userDto",
-        "Type": "ApiWow.DTOs.UserCreateDTO",
         "IsRequired": true
       }
     ],

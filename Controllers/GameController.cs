@@ -3,6 +3,7 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
 using ApiWow.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,6 +41,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<GameDTO>>> Get()
         {
             try
@@ -61,6 +63,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterGame")]
+        [Authorize]
         public async Task<ActionResult<Game>> Get(int id)
         {
             try
@@ -80,6 +83,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Post(Game game)
         {
             try
@@ -102,6 +106,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpPatch("{id:int}")]
+        [Authorize]
         public ActionResult Patch(int id, Game game)
         {
             try
@@ -123,6 +128,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try

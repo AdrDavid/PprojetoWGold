@@ -84,6 +84,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterGoldListing")]
+        [Authorize]
         public async Task<ActionResult<GoldListingDTO>> Get(int id)
         {
             try
@@ -129,6 +130,7 @@ namespace ApiWgold.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult<GoldListing> Post(GoldListing goldListing)
         {
             try
@@ -152,6 +154,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpPatch("{id:int}")]
+        [Authorize]
         public ActionResult<GoldListing> Patch(int id, GoldListing goldListing)
         {
             try
@@ -174,6 +177,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public ActionResult<GoldListing> Delete(int id)
         {
             try

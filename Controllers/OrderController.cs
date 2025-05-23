@@ -1,6 +1,7 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
 using ApiWow.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderDTO>>> Get()
         {
             try
@@ -67,6 +69,7 @@ namespace ApiGold.Controllers
 
 
         [HttpGet("{id:int}", Name = "ObterOrder")]
+        [Authorize]
         public async Task<ActionResult<OrderDTO>> Get(int id)
         {
             try
@@ -115,6 +118,7 @@ namespace ApiGold.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult Post(Order order)
         {
             try

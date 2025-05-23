@@ -278,3 +278,5 @@ C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\Microsoft.IdentityModel.Protoc
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Estudos\C#\Criando API\ApiWow\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Estudos\C#\Criando API\ApiWow\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Estudos\WGOld\GoldApi\bin\Debug\net9.0\BCrypt.Net-Next.dll
+C:\Estudos\WGOld\GoldApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

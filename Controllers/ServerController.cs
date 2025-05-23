@@ -1,6 +1,7 @@
 using ApiWgold.Context;
 using ApiWgold.Models;
 using ApiWow.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace ApiGold.Controllers
 {
     [Route("[Controller]")]
     [ApiController]
+    [Authorize]
 
     public class ServerController : ControllerBase
     {
@@ -40,6 +42,7 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ServerDTO>>> Get()
         {
             try
@@ -68,6 +71,7 @@ namespace ApiGold.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterServer")]
+        [Authorize]
         public async Task<ActionResult<Server>> Get(int id)
         {
             try
@@ -87,6 +91,7 @@ namespace ApiGold.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Post(Server server)
         {
             try

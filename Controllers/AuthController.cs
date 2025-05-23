@@ -106,6 +106,45 @@ namespace ApiWow.Controllers
 
         }
 
+
+        //[Authorize]
+        [HttpPost]
+        [Route("register/adm")]
+        public async Task<ActionResult> RegisterAdm([FromBody] RegisterModel model)
+        {
+            var userExist = await _context.User.FirstOrDefaultAsync(u => u.Email == model.Email || u.Username == model.UserName);
+
+            if (userExist != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new Response
+                    {
+                        Status = "Error",
+                        Message = "Usuario ja existe"
+                    });
+            }
+
+            var newUser = new User()
+            {
+                Username = model.UserName,
+                Email = model.Email,
+                Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                Role = "Admin",
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var result = await _context.User.AddAsync(newUser);
+            var saved = await _context.SaveChangesAsync();
+
+            if (saved <= 0)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = "Falha na criacao do usuario" });
+            }
+            return Ok(new Response { Status = "Success", Message = "Usuario criado com sucesso" });
+
+        }
+
         [HttpPost]
         [Route("refresh-token")]
         public async Task<ActionResult> RefreshToken(TokenModel tokenModel)

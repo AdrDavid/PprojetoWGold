@@ -28,7 +28,6 @@ namespace ApiWgold.Models
         public string Role { get; set; } = "UsuarioBase";
         public string? Password { get; set; }
         public string? ChaveVendedor { get; set; }
-
         //[JsonIgnore]
         public DateTime CreatedAt { get; set; }
 
