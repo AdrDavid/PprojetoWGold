@@ -20,19 +20,41 @@ namespace ApiWgold.Controllers
 
 
         [HttpGet("goldlisting/{userId:int}")]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<GoldListing>>> GetUserGoldListing(int userId)
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<GoldListingDTO>>> GetUserGoldListing(int userId)
         {
             try
             {
-                var goldListings = await _context.GoldListing.Where(gl => gl.UserId == userId).ToListAsync();
+                var listings = await _context.GoldListing
+                   .Include(g => g.Server)
+                   .Include(g => g.User)
+                   .Include(g => g.Server.Games)
+                   .Select(g => new GoldListingDTO
+                   {
+                       GoldListingId = g.GoldListingId,
+                       User = new UserSummaryDTO
+                       {
+                           UserId = g.User.UserId,
+                           Username = g.User.Username
+                       },
+                       Server = new ServerDTO
+                       {
+                           ServerId = g.Server.ServerId,
+                           ServerName = g.Server.ServerName,
+                           Game = new GameDTO
+                           {
+                               GameId = g.Server.Games.GameId,
+                               Name = g.Server.Games.Name
+                           }
+                       },
+                       PricePerK = g.PricePerK,
+                       Qtd = g.Qtd,
+                       Faccao = g.Faccao,
+                       CreatedAt = g.CreatedAt
+                   })
+                   .ToListAsync();
 
-                if(!goldListings.Any())
-                {
-                    return NotFound($"Nenhum anuncio encontrado para o usuario com id {userId}");
-                }
-
-                return Ok(goldListings);
+                return Ok(listings);
             }
             catch (Exception)
             {
@@ -42,7 +64,7 @@ namespace ApiWgold.Controllers
         }
 
         [HttpGet("order/{userId:int}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<Order>>> GetUserOrder(int userId)
         {
             try
